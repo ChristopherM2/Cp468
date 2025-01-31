@@ -1,14 +1,11 @@
 import random
 import sys
 
-
-class puzzle:
+class Puzzle:
     def __init__(self):
         self.board = [[0 for x in range(3)] for y in range(3)]
         self.board_solved()
-        print(self)
-        self.randomize()
-        print(self)
+
     def __str__(self):
         meow ="--------------\n\n"
         for x in range (3):
@@ -37,7 +34,6 @@ class puzzle:
 
     def up(self):
         y, x = self.openSpot()
-        print('up')
         if y == 0 or y==1:
             self.board[y][x] = self.board[y+1][x]
             self.board[y+1][x] = 0
@@ -49,7 +45,7 @@ class puzzle:
 
     def down(self):
         y, x = self.openSpot()
-        print('down')
+
         if y == 2 or y == 1:
             self.board[y][x] = self.board[y - 1][x]
             self.board[y - 1][x] = 0
@@ -60,9 +56,9 @@ class puzzle:
             print('error invalid')
 
     def right(self):
-        print('right')
+
         y, x = self.openSpot()
-        print(y, x)
+
         if x == 0:
             pass
         elif x == 1 or x==2:
@@ -72,9 +68,9 @@ class puzzle:
             print('meow')
 
     def left(self):
-        print('left')
+
         y,x= self.openSpot()
-        print (y,x)
+
         if x == 2:
             pass
         elif x ==1 or x==0:
@@ -83,7 +79,7 @@ class puzzle:
         else:
             print('meow')
 
-    def randomize(self, number=200):
+    def randomize(self, number=2000):
         for x in range(number):
             what = random.randint(1, 4)
             match what:
@@ -98,4 +94,4 @@ class puzzle:
 
 
 if __name__ == '__main__':
-    meow = puzzle()
+    meow = Puzzle()
