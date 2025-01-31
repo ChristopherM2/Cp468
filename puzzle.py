@@ -54,8 +54,7 @@ class puzzle:
             self.board[y][x] = self.board[y - 1][x]
             self.board[y - 1][x] = 0
 
-        elif y == 0\
-                :
+        elif y == 0:
             pass
         else:
             print('error invalid')
