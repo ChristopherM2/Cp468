@@ -1,5 +1,4 @@
 import random
-import sys
 
 class Puzzle:
 
@@ -9,11 +8,11 @@ class Puzzle:
         self.sizeofpuzzle = puzzleSize
         self.board_solved()
 
-    def __lt__(self, other):
+    def __lt__(self, other): #magic method, allows for the use of < to compare two objects, for priority queue ordering
         """For priority queue ordering: Compare based on heuristic value."""
         return sum(row.count(0) for row in self.board) < sum(row.count(0) for row in other.board)
 
-    def __str__(self):
+    def __str__(self): #magic method, allows for the use of print() to print the object
         meow ="--------------\n\n"
         for x in range (self.sizeofpuzzle):
             for y in range(self.sizeofpuzzle):
@@ -24,14 +23,14 @@ class Puzzle:
             meow += "\n"
         return meow
 
-    def __eq__(self, other):
+    def __eq__(self, other): #magic method, allows for the use of == to compare two objects, dont need to analyze the same tree twice
         if self.board == other.board:
             return True
         else:
             return False
 
     def board_solved(self):
-
+        # this can definitely be optimized, but it works
         if self.sizeofpuzzle == 3:
             self.board[0][0] = 0
             self.board[0][1] = 1
@@ -66,6 +65,7 @@ class Puzzle:
             self.board[3][3] = 15
 
     def openSpot(self):
+        #finds the open spot on the board or (0)
         for x in range(self.sizeofpuzzle):
             for y in range(self.sizeofpuzzle):
                 if self.board[x][y] == 0:
@@ -73,6 +73,7 @@ class Puzzle:
         return -1,-1
 
     def up(self):
+        #Performs the up move
         y, x = self.openSpot()
         if y == 0 or y==1 or (y==2 and self.sizeofpuzzle==4):
             self.board[y][x] = self.board[y+1][x]
@@ -83,8 +84,8 @@ class Puzzle:
 
 
     def down(self):
+        #Performs the down move
         y, x = self.openSpot()
-
         if y == 2 or y == 1 or (y==3 and self.sizeofpuzzle==4):
             self.board[y][x] = self.board[y - 1][x]
             self.board[y - 1][x] = 0
@@ -94,9 +95,8 @@ class Puzzle:
             return False
 
     def right(self):
-
+        #Performs the right move
         y, x = self.openSpot()
-
         if x == 0:
             pass
         elif x == 1 or x==2 or (x==3 and self.sizeofpuzzle==4):
@@ -107,7 +107,7 @@ class Puzzle:
             return False
 
     def left(self):
-
+        #Performs the left move
         y,x= self.openSpot()
         if x ==1 or x==0 or (x==2 and self.sizeofpuzzle==4):
             self.board[y][x] = self.board[y][x+1]
@@ -117,13 +117,14 @@ class Puzzle:
             return False
 
     def find(self, num):
+        #finds the location of a number on the board, similar to empty spot, but for a number. Quite literally same method, I should have just used one method instead of making a new one
         for x in range(self.sizeofpuzzle):
             for y in range(self.sizeofpuzzle):
                 if self.board[x][y] == num:
                     return x, y
         return -1, -1
 
-    def randomize(self, number=200):
+    def randomize(self, number=100): #randomizes the board, default is 100 random moves,
         for x in range(number):
             what = random.randint(1, 4)
             match what:
