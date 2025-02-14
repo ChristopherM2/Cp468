@@ -67,13 +67,15 @@ if __name__ == '__main__':
     lock = multiprocessing.Lock()
     stats = multiprocessing.Manager().dict({ #normal dictionary does not work with multiprocessing :fire:
         'manhattan For 3x3': 0,
-        'manhattan For 4x4': 0,
-
         'misplaced For 3x3': 0,
-        'misplaced For 4x4': 0,
-
         'euclidian For 3x3': 0,
+        'manhattan For 4x4': 0,
+        'misplaced For 4x4': 0,
         'euclidian For 4x4': 0
+
+
+
+
     })
     x = 0
     for size in range(0,2): # 1 for 3x3 and 1 for 4x4
